@@ -1,19 +1,20 @@
 import time
 
 
-dictionary = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+dictionary_upper = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+dictionary_lower = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 
 
 def input_words(f):
     data_input = open(f'{f}.txt', 'r', encoding='utf-8').read()
     data = data_input.split()
-    data_words = [word.strip(",.;!?:") for word in data if word[0] in dictionary]
+    data_words = [word.strip(",.;!?:-*()[]") for word in data if word[0] in dictionary_upper + dictionary_lower]
     return data_words, data_input
 
 
 def to_file(original_text, words, timed):
     result = open('D:\\2\\result.txt', 'w', encoding='utf-8')
-    for i in dictionary.upper():
+    for i in dictionary_upper:
         checker = False
         for word in words:
             if word[0] == i or word[0] == i.lower():
@@ -29,7 +30,7 @@ def to_file(original_text, words, timed):
 Количество слов: {len(words)}
 Время сортировки: {round(timed, 4)} сек
 Статистика:\n""")
-    for i in dictionary.lower():
+    for i in dictionary_lower:
         count = 0
         for word in words:
             if word.startswith(i) or word.startswith(i.upper()):
